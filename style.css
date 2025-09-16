@@ -1,0 +1,128 @@
+/* ===== Reset & Base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg1:#0b0b0b; --bg2:#121212; --accent:#ffcc00; --muted:#bfbfbf;
+  --card-bg: rgba(255,255,255,0.03);
+}
+body{
+  font-family: "Poppins", system-ui, Arial, sans-serif;
+  background: linear-gradient(120deg,#0a0a0a 0%, #0f0f12 50%, #0b0b0b 100%);
+  color:#fff; min-height:100vh; -webkit-font-smoothing:antialiased;
+}
+
+/* animated background glow */
+@keyframes bgMove {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+body{
+  background-image: linear-gradient(120deg,#0a0a0a 0%, #0f0f12 30%, #15151a 60%, #0b0b0b 100%);
+  background-size: 400% 400%;
+  animation: bgMove 20s ease infinite;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:fixed; top:0; left:0; right:0; height:72px; display:flex;
+  align-items:center; justify-content:space-between; padding:0 40px;
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); z-index:1000;
+  border-bottom:1px solid rgba(255,204,0,0.06);
+}
+.logo{ font-weight:700; font-size:1.2rem; color:var(--accent); display:flex; gap:8px; align-items:center;}
+.navbar nav ul{ list-style:none; display:flex; gap:20px; align-items:center; }
+.navbar a{ color:#fff; text-decoration:none; padding:8px 12px; transition:color .18s, transform .18s; }
+.navbar a:hover{ color:var(--accent); transform:translateY(-2px); }
+.navbar a.active{ color:var(--accent); font-weight:600; }
+.navbar .btn{ background:var(--accent); color:#000; border-radius:8px; padding:8px 12px; font-weight:600; }
+
+/* ==== Page layout ==== */
+main{ margin-top:90px; }
+
+/* ===== Hero ===== */
+.hero{ display:flex; gap:40px; align-items:center; padding:60px 40px; min-height:70vh; }
+.hero-left{ max-width:640px; }
+.hero h1{ font-size:3rem; line-height:1.02; margin-bottom:12px; color:#fff; }
+.highlight{ color:var(--accent); text-shadow:0 0 18px rgba(255,204,0,0.18); }
+.hero p{ color:var(--muted); font-size:1.05rem; margin-bottom:18px; }
+
+.cta-row{ display:flex; gap:14px; margin-top:8px; }
+.cta-btn{ background:var(--accent); color:#000; padding:12px 20px; border-radius:10px; text-decoration:none; font-weight:700; box-shadow:0 10px 0 rgba(0,0,0,0.2); transition:transform .16s, box-shadow .16s; }
+.cta-btn.alt{ background:transparent; color:var(--accent); border:2px solid var(--accent); box-shadow:none; }
+.cta-btn:hover{ transform:translateY(3px); box-shadow:0 6px 0 rgba(0,0,0,0.2); }
+
+/* ===== Floating 3D car (decorative) ===== */
+.hero-right{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+.floating-car-3d{ width:360px; height:180px; perspective:1100px; position:relative; }
+.car-body{
+  width:320px; height:120px; margin:auto; border-radius:22px;
+  background: linear-gradient(145deg,#2b2b2b,#111); position:relative;
+  transform-style:preserve-3d; animation:floatUp 4s ease-in-out infinite, spinY 14s linear infinite;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(255,204,0,0.06) inset;
+  border:1px solid rgba(255,255,255,0.03);
+}
+@keyframes floatUp{
+  0%,100%{ transform: translateY(0) }
+  50%{ transform: translateY(-18px) }
+}
+@keyframes spinY{
+  0%{ transform: translateY(0) rotateY(0deg) }
+  100%{ transform: translateY(0) rotateY(360deg) }
+}
+.car-shadow{ width:260px; height:20px; background: radial-gradient(ellipse at center, rgba(0,0,0,0.6), transparent 60%); border-radius:50%; margin-top:-12px; opacity:0.8; }
+
+/* badges */
+.home-badges{ display:flex; gap:8px; }
+.badge{ background:rgba(255,255,255,0.03); border:1px solid rgba(255,204,0,0.06); padding:8px 12px; border-radius:12px; color:var(--muted); font-weight:600; }
+
+/* ===== Cards grid used on many pages ===== */
+.card-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:28px; margin-top:28px; }
+.car-card{
+  background:var(--card-bg); border-radius:16px; padding:18px; text-align:center;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: transform .5s, box-shadow .5s; transform-style:preserve-3d; position:relative; overflow:hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+.car-card:hover{ transform: translateY(-10px) rotateY(8deg) scale(1.03); box-shadow:0 25px 60px rgba(0,0,0,0.7), 0 0 50px rgba(255,204,0,0.08); }
+
+/* image styling with 3D tilt effect */
+.car-img{ width:100%; height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:10px; margin-bottom:12px; }
+.car-img img{ width:100%; height:100%; object-fit:cover; transition: transform .6s, filter .4s; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.6)); }
+.car-card:hover .car-img img{ transform: scale(1.08) rotateY(8deg); filter: brightness(1.02) saturate(1.06); }
+
+.car-card h3{ font-size:1.15rem; margin-bottom:6px; }
+.car-card .meta{ color:var(--muted); font-size:0.92rem; margin-bottom:8px; }
+.price{ color:var(--accent); font-weight:700; margin-bottom:12px; }
+.buy-btn{ display:inline-block; background:var(--accent); color:#000; padding:10px 18px; border-radius:10px; text-decoration:none; font-weight:700; box-shadow:0 8px rgba(0,0,0,0.2); transition:transform .14s; }
+.buy-btn:hover{ transform:translateY(4px); }
+
+/* ===== Sections ===== */
+.models-list, .preview, .contact-section, .about{ padding:80px 40px 100px; max-width:1200px; margin:0 auto; }
+.models-list h1, .preview h2, .about h1, .contact-section h1{ font-size:2.2rem; margin-bottom:8px; }
+.subtitle{ color:var(--muted); margin-bottom:18px; }
+
+/* ===== Contact grid ===== */
+.contact-grid{ display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:start; margin-top:18px; }
+.contact-info{ background:var(--card-bg); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); }
+.contact-form label{ display:block; margin-bottom:12px; color:var(--muted); font-weight:600; }
+.contact-form input, .contact-form textarea{
+  width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; margin-top:6px;
+}
+.contact-form button.cta-btn{ margin-top:8px; border:none; cursor:pointer; }
+
+/* ===== Footer ===== */
+.footer{ padding:30px 20px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.02); }
+
+/* ===== Responsive ===== */
+@media (max-width:900px){
+  .hero{ flex-direction:column; padding:80px 20px; gap:18px; }
+  .hero-right{ order:-1; }
+  .contact-grid{ grid-template-columns: 1fr; }
+  .navbar{ padding:0 20px; }
+}
+@media (max-width:520px){
+  .navbar nav ul{ gap:10px; }
+  .hero h1{ font-size:2rem; }
+  .car-img{ height:140px; }
+}
+
